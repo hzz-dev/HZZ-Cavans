@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- canvas三要素 设置画布 id,width,height -->
+		<canvas id="canvars1" width="600" height="600">
+			
+		</canvas>
+		
+		
+		<script type="text/javascript">
+			//1. 获取画布对象
+			var canvars1 = document.querySelector('#canvars1')	
+			//2. 找到上下文对象(画笔)
+			var ctx = canvars1.getContext('2d')  //webgl:3D引擎
+			// 第一个红色为目标图像
+			ctx.fillStyle = 'aquamarine'
+			ctx.fillRect(100,100,200,200)
+			
+			// 默认值为source-over,源图像叠加在目标图像上
+			//ctx.globalCompositeOperation='source-over'
+			// source-atop 源图像在目标图像外的不显示
+			// ctx.globalCompositeOperation ='source-atop'
+			// source-in 显示两个叠加的内容
+			// ctx.globalCompositeOperation ='source-in'
+			// source-out 源图像在目标图像外的显示
+			// ctx.globalCompositeOperation ='source-out'
+			// description-over 在目标图像上显示源图像
+			// ctx.globalCompositeOperation ='destination-over'
+			// destination-atop 目标图像在源图像外的不显示
+			// ctx.globalCompositeOperation ='destination-atop'
+			// destination-in 目标图像在源图像外的显示
+			// ctx.globalCompositeOperation ='destination-in'
+			// destination-out 目标图像在源图像外的显示
+			// ctx.globalCompositeOperation ='destination-out'
+			// lighter 显示两个图像除了重叠的部分
+			// ctx.globalCompositeOperation ='lighter'
+			// copy 只显示源图像
+			// ctx.globalCompositeOperation ='copy'
+			
+			ctx.globalCompositeOperation ='xor'
+			
+			// 第二个为源图像
+			ctx.fillStyle = 'crimson'
+			ctx.fillRect(200,200,200,200)
+			
+			
+		</script>
+	</body>
+</html>

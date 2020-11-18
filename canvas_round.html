@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- canvas三要素 设置画布 id,width,height -->
+		<canvas id="canvars1" width="600" height="600">
+			
+		</canvas>
+		
+		
+		<script type="text/javascript">
+			//1. 获取画布对象
+			var canvars1 = document.querySelector('#canvars1')	
+			//2. 找到上下文对象(画笔)
+			var ctx = canvars1.getContext('2d')  //webgl:3D引擎
+			// console.log(ctx)
+			
+			// 默认为falses顺时针
+			ctx.arc(300,300,100,0,2*Math.PI,true)
+			
+			ctx.strokeStyle ='aquamarine'
+			ctx.stroke()
+			
+			ctx.fillStyle = 'burlywood'
+			ctx.fill()
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- canvas三要素 设置画布 id,width,height -->
+		<canvas id="canvars1" width="600" height="600">
+			
+		</canvas>
+		
+		
+		<script type="text/javascript">
+			//1. 获取画布对象
+			var canvars1 = document.querySelector('#canvars1')	
+			//2. 找到上下文对象(画笔)
+			var ctx = canvars1.getContext('2d')  //webgl:3D引擎
+			console.log(ctx)
+			
+			//3. 设置绘制起始点
+			ctx.beginPath() //开始绘制路径
+			ctx.moveTo(50,50)
+			//设置经过某个位置
+			ctx.lineTo(50,300)
+			ctx.lineTo(300,100)
+			ctx.lineTo(300,250)
+			ctx.closePath() //完成绘制
+			
+			//4. 绘制路径
+			ctx.lineCap = 'round' //起始点样式
+			// ctx.lineJoin = 'round' //中间拐角样式
+			// ctx.miterLimit = 2 //裁剪角
+			ctx.lineWidth=10
+			ctx.strokeStyle = 'crimson'
+			ctx.stroke()
+			
+			ctx.fillStyle = 'aquamarine'
+			ctx.fill()
+			
+		</script>
+	</body>
+</html>

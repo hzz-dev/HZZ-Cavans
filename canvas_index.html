@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!-- canvas三要素 设置画布 id,width,height -->
+		<canvas id="canvars1" width="600" height="600">
+			
+		</canvas>
+		
+		
+		<script type="text/javascript">
+			// 获取画布对象
+			var canvars1 = document.querySelector('#canvars1')	
+			// 找到上下文对象(画笔)
+			var ctx = canvars1.getContext('2d')  //webgl:3D引擎
+			console.log(ctx)
+			
+			// 绘制路径
+			ctx.rect(50,50,300,300)
+			// 填充样式
+			ctx.fillStyle = 'aquamarine'
+			// 填充
+			ctx.fill()
+			// 渲染路径(描边)
+			ctx.lineWidth = '20'
+			ctx.strokeStyle = 'coral'
+			ctx.stroke()
+			
+				
+		</script>
+		
+	</body>
+	
+	
+</html>

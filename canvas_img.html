@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<canvas id="canvars1" width="600" height="600">
+		</canvas>
+		<script type="text/javascript">
+			//1. 获取画布对象
+			var canvars1 = document.querySelector('#canvars1')	
+			//2. 找到上下文对象(画笔)
+			var ctx = canvars1.getContext('2d')  //webgl:3D引擎
+			console.log(ctx)
+
+			// 绘制图像
+			// ctx.drawImage(图片对象,x位置,y位置)
+			//ctx.drawImage(图片对象,x位置,y位置,宽度,高度)
+			//ctx.drawImage(图片对象,图像裁剪的位置x,图像裁剪的位置y,裁剪的宽度,裁剪的高度,x位置,y位置,宽度,高度)
+			var img = new Image()
+			img.src = './cat.jpg'
+			
+			// var img2 = new Image()
+			// img2.src = './dog.jpg'
+			// 图片载入数据后再绘制内容
+			img.onload = function(){
+				// ctx.drawImage(img,50,50,300,200)
+				ctx.drawImage(img,50,50,300,200)
+				ctx.font = '12px 微软雅黑'
+				ctx.fillStyle = 'aqua'
+				ctx.fillText('打码',310,235)
+			}
+			
+			// img2.onload = function(){
+			// 	ctx.drawImage(img2,100,100)
+			// }
+			
+			
+	
+		</script>
+	</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+			body{
+				width: 100vw;
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+			}
+			
+			.caidan {
+				height: 100px;
+				width: 100vw;
+				display: flex;
+				border-bottom: 3px solid #ccc;
+				justify-content: space-around;
+				align-items: center;
+			}
+			
+			#canvars1{
+				flex: 1;
+				width: 100vw;
+			}
+			
+			.btn {
+				width: 120px;
+				height: 40px;
+				border: 1px solid #ccc;
+				border-radius: 20px;
+				text-align: center;
+				line-height: 40px;
+				color: #999;
+			}
+			
+			.btn,.btn2{
+				width: 120px;
+				height: 40px;
+				border: 1px solid #ccc;
+				border-radius: 20px;
+				text-align: center;
+				line-height: 40px;
+				color: #999;
+			}
+			
+			.btn.active {
+				box-shadow: 0 0 20px deepskyblue;
+				border: 1px solid deepskyblue;
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<!-- 将画面功能:能够拖动鼠标在页面内绘图,能够设置画笔的粗细,设置画笔的颜色
+			能够在任意位置绘制圆形,随意定制大小
+			能够在任意位置绘制矩形,随意定制大小
+		 -->
+		 <div class="caidan">
+			<div class="btn">橡皮擦</div>
+		 	<div class="btn" id="huabi">圆笔</div>
+		 	<div class="btn" id="rect">矩形</div>	
+		 	<div class="btn">圆形</div>
+			<div class="btn">线段粗细</div>
+			<div class="btn">画笔颜色</div>
+			<div class="btn2"><input type="color" name="color" id="color" value="#000000"></input></div>
+			<div class="btn2 download">
+				<a href="" download="download">下载图片</a>
+			</div>
+		 </div>
+		 
+		 <canvas id="canvars1"></canvas>
+		 <script type="text/javascript">
+			var allBtn = document.querySelectorAll('.btn')
+		 	var canvars1 = document.querySelector('#canvars1')
+			var ctx = canvars1.getContext('2d')
+			// 设置canvas的宽度和高度
+			canvars1.setAttribute('width',canvars1.offsetWidth)
+			canvars1.setAttribute('height',canvars1.offsetHeight)
+			var huaban = {
+				type:'none',
+				isDrow:false,
+				beginX:0,
+				beginY:0,
+				imageDate:null,
+				// 画笔
+				huabiFn:function(e){
+					var x = e.pageX-canvars1.offsetLeft
+					var y = e.pageY-canvars1.offsetTop
+					ctx.beginPath()
+					ctx.arc(x,y,3,0,2*Math.PI)
+					ctx.fill()
+					ctx.closePath()
+				},
+				// 画矩形
+				rectFn:function(e){
+					var x = e.pageX-canvars1.offsetLeft
+					var y = e.pageY-canvars1.offsetTop
+					ctx.clearRect(0,0,canvars1.offsetWidth,canvars1.offsetHeight)
+					if(huaban.imageDate != null)  {
+					ctx.putImageData(huaban.imageDate,0,0,0,0,canvars1.offsetWidth,canvars1.offsetHeight)
+					}
+					ctx.beginPath()
+					ctx.rect(huaban.beginX,huaban.beginY,x-huaban.beginX,y-huaban.beginY)
+					ctx.stroke()
+					ctx.closePath()
+				}
+			}
+		 
+			var huabiBtn = document.querySelector('#huabi')
+			huabiBtn.onclick = function(){
+				allBtn.forEach(function(item,i) {
+					item.classList.remove('active')
+				})
+				huabiBtn.classList.add('active')
+				huaban.type='huabi'
+			}
+			
+			var rectBtn = document.querySelector('#rect')
+			rectBtn.onclick = function(){			
+				allBtn.forEach(function(item,i) {
+					item.classList.remove('active')
+				})
+				rectBtn.classList.add('active')
+				huaban.type='rect'
+			}
+			
+			// 找到下载按钮
+			var downloadBtn = document.querySelector('.download')
+			downloadBtn.onclick = function(){
+				var url = canvars1.toDataURL()
+				console.log(url)
+				var aDom = document.querySelector('.download a')
+				aDom.setAttribute('href',url)
+				
+			}
+			
+			// 监听鼠标按下事件
+			canvars1.onmousedown = function(e){
+				huaban.isDrow = true
+				if(huaban.type == "rect") {
+					var x = e.pageX-canvars1.offsetLeft
+					var y = e.pageY-canvars1.offsetTop
+					huaban.beginX = x
+					huaban.beginY = y
+				}
+			}
+			// 监听鼠标抬起事件
+			canvars1.onmouseup = function(){
+				// 把画板上所有数据保留
+				huaban.imageDate = ctx.getImageData(0,0,canvars1.offsetWidth,canvars1.offsetHeight)
+				huaban.isDrow = false
+			}
+			
+			canvars1.onmousemove = function(e){
+				if(huaban.isDrow) {
+					var strFn = huaban.type+'Fn'
+					// console.log(strFn)
+					huaban[strFn](e)
+				}
+			}
+			
+		 
+		 </script>
+	</body>
+</html>

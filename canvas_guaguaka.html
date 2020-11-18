@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#ggk {
+				width: 400px;
+				height: 100px;
+				position: relative;
+			}
+			.jp {
+				width: 400px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				text-align: center;
+				line-height: 100px;
+				color: crimson;
+				font-size: 30px;
+			}
+			
+			#canvars1{
+				width: 400px;
+				height: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		<div id="ggk">
+			<div class="jp">谢谢惠顾</div>
+			<!-- canvas三要素 设置画布 id,width,height -->
+			<canvas id="canvars1" width="400" height="100">	
+			</canvas>
+		</div>
+		
+		<script type="text/javascript">
+			//1. 获取画布对象
+			var canvars1 = document.querySelector('#canvars1')	
+			var ggkDom = document.querySelector('#ggk')	 
+			var jpkDom = document.querySelector('.jp')	 
+			//2. 找到上下文对象(画笔)
+			var ctx = canvars1.getContext('2d')  //webgl:3D引擎
+			
+			ctx.fillStyle = 'darkgrey'
+			ctx.fillRect(0,0,400,100)
+			
+			ctx.fillStyle = '#fff'
+			ctx.font = '30px 微软雅黑'
+			ctx.fillText('刮刮卡',160,60)
+			
+			var isDraw = false
+			// 默认isDraw=true,即为允许绘制
+			canvars1.onmousedown = function(){
+				isDraw = true
+			}
+			
+			// 移动的时候绘制圆形,将源图像内的目标内容清除掉
+			canvars1.onmousemove = function(e){
+				if(isDraw) {
+					var x = e.pageX - ggkDom.offsetLeft
+					var y = e.pageY - ggkDom.offsetTop
+					ctx.globalCompositeOperation='destination-out'
+					ctx.arc(x,y,20,0,2*Math.PI)
+					ctx.fill()
+				}
+			}
+			
+			canvars1.onmouseup= function(){
+				isDraw = false
+			}
+			
+			var jpArr = [{content:'一等奖:IphoneXs',p:0.1},{content:'二等奖:Ipadpro',p:0.2},{content:'三等奖:Iwatch',p:0.3}]
+			var randomNum = Math.random()
+			console.log(randomNum)
+			
+			if(randomNum<jpArr[0].p) {
+				jpkDom.innerHTML = jpArr[0].content
+			}
+			else if(randomNum<jpArr[1].p+jpArr[0].p) {
+				jpkDom.innerHTML = jpArr[1].content
+			}
+			else if(randomNum<jpArr[2].p+jpArr[1].p+jpArr[0].p) {
+				jpkDom.innerHTML = jpArr[2].content
+			}
+			
+		</script>
+	</body>
+</html>
